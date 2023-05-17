@@ -13,9 +13,7 @@ echo $(osv-scanner --sbom=sbom.spdx --json) > OSVOut.json
 # OSVOut.jsonの.results[].packages[]からパッケージ名.package.nameとパッケージバージョン.package.versionとCVE番号.vulnerabilities[].aliases[]を抽出する。CVE番号.vulnerabilities[].aliases[]が存在しない場合は空白とする。.vulnerabilities[].scoreがある場合は、それも抽出する。
 jq -r '.results[].packages[] | .package.name + "," + .package.version + "," + (.vulnerabilities[].aliases[0]? // empty) + "," + (.vulnerabilities[].severity[0].score? // empty)' OSVOut.json > OSVOut.csv
 
-
 # OSVOut.csvを一行ずつよみながら、中のベクターストリングからセベリティ情報を補完してLeanSeeks用のJSONファイルを作成する。OSVOut.cvsの中のベクターストリングの値は、cvss_calculatorの出力の2行目の出力から()の中にあるCVSSセベリティを抽出する。
-
 it=1
 number=$(cat work/ecr_vlun.txt | grep -c "CVE-")
 echo '[' > "osv_vlun_LS.json"
