@@ -23,12 +23,13 @@ while read row; do
   cveId=$(echo $row | cut -d "," -f 3 )
   vectorString=$(echo $row | cut -d "," -f 4 )
   severity=$(cvss_calculator -v ${vectorString} | sed -n 2p | cut -d "(" -f 2 | cut -d ")" -f 1)
+  score=$(cvss_calculator -v ${vectorString} | sed -n 2p | cut -d ":" -f 2 | tr -d " " | cut -d "(" -f 1)
   echo "{
     \"cveId\": \"${cveId}\",
     \"packageName\": \"${packageName}\",
     \"packageVersion\": \"${packageVersion}\",
     \"severity\": \"$(echo "${severity}" | tr "[A-Z]" "[a-z]")\",
-    \"cvssScore\": \"\",
+    \"cvssScore\": \"${score}\",
     \"title\": \"\",
     \"description\": \"\",
     \"link\": \"\",
