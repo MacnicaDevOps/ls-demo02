@@ -63,3 +63,4 @@ echo "------- LeanSeeksのアップロードデータを生成中"
 echo "app_name=OSV_SCAN_${repo}_${CIRCLE_BUILD_NUM}" > param.txt
 echo 'app_priority="H"' >> param.txt
 echo "scanner=255" >> param.txt
+
