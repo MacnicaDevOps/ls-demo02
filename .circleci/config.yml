@@ -25,6 +25,7 @@ jobs:
           name: Prepare environment
           command: |
             apt-get update && apt-get install -y curl golang git python3 python3-pip
+            pip install --upgrade pip
             go install github.com/google/osv-scanner/cmd/osv-scanner@v1
             pip3 install cvss
       - run:
