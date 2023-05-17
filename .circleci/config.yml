@@ -31,7 +31,8 @@ jobs:
       - run:
           name: "simple test"
           command: |
-            osv-scanner --sbom temp2.spdx
+            osv-scanner --sbom temp2.spdx --json > temp.json
+            head -n 10 temp.json
       - run:
           name: "CVSS Calculator"
           command: |
