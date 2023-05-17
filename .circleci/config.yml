@@ -31,5 +31,5 @@ jobs:
           name: "simple test"
           command: |
             osv-scanner --sbom temp2.spdx
-            vss_calculator -v "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+            cvss_calculator -v "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
 
