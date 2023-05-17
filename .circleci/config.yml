@@ -16,7 +16,7 @@ jobs:
     executor: builder
     environment:
       owner: "macnicadevops"
-      repo: "macnicadevops.github.io"
+      repo: "jfrog-demo-gems"
       
     steps:
       - checkout
