@@ -15,7 +15,7 @@ jq -r '.results[].packages[] | .package.name + "," + .package.version + "," + (.
 
 # OSVOut.csvを一行ずつよみながら、中のベクターストリングからセベリティ情報を補完してLeanSeeks用のJSONファイルを作成する。OSVOut.cvsの中のベクターストリングの値は、cvss_calculatorの出力の2行目の出力から()の中にあるCVSSセベリティを抽出する。
 it=1
-number=$(cat work/ecr_vlun.txt | grep -c "CVE-")
+number=$(cat osv_vlun.txt | grep -c "CVE-")
 echo '[' > "osv_vlun_LS.json"
 while read row; do
   packageName=$(echo $row | cut -d "," -f 1 )
@@ -42,7 +42,7 @@ while read row; do
     \"publicExploits\": \"\",
     \"published\": \"\",
     \"updated\": \"\",
-    \"type\": \"\"" >> "ecr_vlun_LS.json"
+    \"type\": \"\"" >> "osv_vlun_LS.json"
   if [ ${it} -eq ${number} ]; then
     echo "}]" >> "osv_vlun_LS.json"
   else

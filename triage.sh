@@ -1,11 +1,7 @@
 #!/bin/bash
 
-#source /tmp/workspace/env.txt
 source param.txt
 
-#デバッグ用
-  #echo "param.txtの中身"
-  #cat param.txt
 
 # LeanSeeksのアップロード情報を取得し、URLとTokenを変数に入れる
 echo "------- LeanSeeksのアップロードURLを情報取得中"
