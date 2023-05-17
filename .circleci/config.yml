@@ -15,8 +15,8 @@ jobs:
   osv_scan:
     executor: builder
     environment:
-      owner: "webgoat"
-      repo: "webgoat-legacy"
+      owner: "hakimel"
+      repo: "reveal.js"
       
     steps:
       - checkout
