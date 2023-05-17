@@ -29,12 +29,10 @@ jobs:
             go install github.com/google/osv-scanner/cmd/osv-scanner@v1
             pip3 install cvss
       - run:
-          name: "simple test"
-          command: |
-            osv-scanner --sbom temp2.spdx --json > temp.json
-            head -n 10 temp.json
-      - run:
           name: "CVSS Calculator"
           command: |
             cvss_calculator -v "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N" | sed -n 2p 
-
+      - run:
+          name: "OSV Scanner"
+          command: |
+            osv-scanner --sbom temp2.spdx --json 
