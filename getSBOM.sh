@@ -55,11 +55,11 @@ done < OSVOut.csv
 
 # LeanSeeks用のアップロードデータを生成する
 echo "------- LeanSeeksのアップロードデータを生成中"
-  echo '[{"id": "ci_scan.json","scanner": 255,"payload":' > vuln_data.json
+  echo '[{"id": "github_repo.json","scanner": 255,"payload":' > vuln_data.json
   echo $(cat "osv_vlun_LS.json") >> vuln_data.json
   echo "}]" >> vuln_data.json
 
 # LeanSeeksの環境変数を指定してファイルに書き出す
-echo "app_name=OSV_SCAN_${CIRCLE_BUILD_NUM}" > param.txt
+echo "app_name=OSV_SCAN_${repo}_${CIRCLE_BUILD_NUM}" > param.txt
 echo 'app_priority="H"' >> param.txt
 echo "scanner=255" >> param.txt
