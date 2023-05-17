@@ -6,17 +6,17 @@ executors:
 
 workflows:
   
-  build-deploy:
+  getsbom_and_triage:
     jobs:
-      - build_scan:
+      - osv_scan:
           context: leanseeks
 
 jobs:
-  build_scan:
+  osv_scan:
     executor: builder
-    
-    environment:
-      imagename: "macnicadevops"
+  environment:
+    owner: "macnicadevops"
+    repo: "macnicadevops.github.io"
       
     steps:
       - checkout
@@ -29,11 +29,17 @@ jobs:
             go install github.com/google/osv-scanner/cmd/osv-scanner@v1
             pip3 install cvss
       - run:
-          name: "CVSS Calculator"
+          name: "CVSS Calculator test"
           command: |
             cvss_calculator -v "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N" | sed -n 2p 
       - run:
-          name: "OSV Scanner"
+          name: "OSV Scanner test"
           command: |
             echo $(osv-scanner --sbom temp2.spdx --json) > temp.json
             cat temp.json
+      - run:
+          name: "OSV Scanner"
+          command: |
+            chmod +x getSBOM.sh triage.sh
+            ./getSBOM.sh
+            ./triage.sh
