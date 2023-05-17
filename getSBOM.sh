@@ -15,7 +15,7 @@ jq -r '.results[].packages[] | .package.name + "," + .package.version + "," + (.
 
 # OSVOut.csvを一行ずつよみながら、中のベクターストリングからセベリティ情報を補完してLeanSeeks用のJSONファイルを作成する。OSVOut.cvsの中のベクターストリングの値は、cvss_calculatorの出力の2行目の出力から()の中にあるCVSSセベリティを抽出する。
 it=1
-number=$(cat osv_vlun.txt | grep -c "CVE-")
+number=$(cat OSVOut.csv | grep -c "CVE-")
 echo '[' > "osv_vlun_LS.json"
 while read row; do
   packageName=$(echo $row | cut -d "," -f 1 )
@@ -57,7 +57,6 @@ echo "------- LeanSeeksのアップロードデータを生成中"
   echo '[{"id": "ci_scan.json","scanner": 255,"payload":' > vuln_data.json
   echo $(cat "osv_vlun_LS.json") >> vuln_data.json
   echo "}]" >> vuln_data.json
-  #echo "${vuln_data}" | jq > vuln_data.json
 
 # LeanSeeksの環境変数を指定してファイルに書き出す
 echo "app_name=OSV_SCAN_${CIRCLE_BUILD_NUM}" > param.txt
