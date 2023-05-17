@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# 環境変数
-
 # GithubからSBOMを取得する
 curl -L \
   -H "Accept: application/vnd.github+json" \

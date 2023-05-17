@@ -14,9 +14,9 @@ workflows:
 jobs:
   osv_scan:
     executor: builder
-  environment:
-    owner: "macnicadevops"
-    repo: "macnicadevops.github.io"
+    environment:
+      owner: "macnicadevops"
+      repo: "macnicadevops.github.io"
       
     steps:
       - checkout
