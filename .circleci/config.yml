@@ -16,7 +16,7 @@ jobs:
     executor: builder
     environment:
       owner: "webgoat"
-      repo: "webgoat"
+      repo: "webgoat-legacy"
       
     steps:
       - checkout
@@ -28,15 +28,7 @@ jobs:
             pip install --upgrade pip
             go install github.com/google/osv-scanner/cmd/osv-scanner@v1
             pip3 install cvss
-      - run:
-          name: "CVSS Calculator test"
-          command: |
-            cvss_calculator -v "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N" | sed -n 2p 
-      - run:
-          name: "OSV Scanner test"
-          command: |
-            echo $(osv-scanner --sbom temp2.spdx --json) > temp.json
-            cat temp.json
+
       - run:
           name: "OSV Scanner"
           command: |
