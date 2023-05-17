@@ -15,8 +15,8 @@ jobs:
   osv_scan:
     executor: builder
     environment:
-      owner: "macnicadevops"
-      repo: "jfrog-demo-gems"
+      owner: "webgoat"
+      repo: "webgoat"
       
     steps:
       - checkout
