@@ -1,0 +1,4700 @@
+[{
+  "id": "GHSA-h96f-fc7c-9r55",
+  "published": "2021-01-06T19:25:46Z",
+  "modified": "2021-01-06T19:25:24Z",
+  "summary": "Regex denial of service vulnerability in codesample plugin",
+  "details": "### Impact\nA regex denial of service (ReDoS) vulnerability was discovered in a dependency of the `codesample` plugin. The vulnerability allowed poorly formed ruby code samples to lock up the browser while performing syntax highlighting. This impacts users of the `codesample` plugin using TinyMCE 5.5.1 or lower.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 5.6.0 by upgrading to a version of the dependency without the vulnerability.\n\n### Workarounds\nTo work around this vulnerability, either:\n- Upgrade to TinyMCE 5.6.0 or higher\n- Disable the `codesample` plugin\n- Disable ruby code samples using the [codesample_languages](https://www.tiny.cloud/docs/plugins/opensource/codesample/#exampleusingcodesample_languages) setting\n- Override the PrismJS syntax highlighter to version 1.21.0 or higher using the [codesample_global_prismjs](https://www.tiny.cloud/docs/plugins/opensource/codesample/#codesample_global_prismjs) setting\n\n### Acknowledgements\nTiny Technologies would like to thank Erik Krogh Kristensen at GitHub for discovering this vulnerability.\n\n### References\nhttps://www.tiny.cloud/docs/release-notes/release-notes56/#securityfixes\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in the [TinyMCE repo](http://github.com/tinymce/tinymce/issues)\n* Email us at [infosec@tiny.cloud](mailto:infosec@tiny.cloud)",
+  "affected": [
+    {
+      "package": {
+        "name": "tinymce",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.6.0"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/security/advisories/GHSA-h96f-fc7c-9r55"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.npmjs.com/package/tinymce"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.tiny.cloud/docs/release-notes/release-notes56/#securityfixes"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-400"
+    ],
+    "severity": "LOW",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-01-06T19:25:24Z"
+  }
+},
+{
+  "id": "GHSA-w7jx-j77m-wp65",
+  "published": "2021-01-06T19:27:54Z",
+  "modified": "2023-02-16T23:32:21.926258Z",
+  "summary": "Cross-site scripting vulnerability in TinyMCE",
+  "details": "### Impact\nA cross-site scripting (XSS) vulnerability was discovered in the URL sanitization logic of the core parser. The vulnerability allowed arbitrary JavaScript execution when inserting a specially crafted piece of content into the editor using the clipboard or APIs. This impacts all users who are using TinyMCE 5.5.1 or lower.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 5.6.0 by improved URL sanitization logic.\n\n### Workarounds\nTo work around this vulnerability, either:\n- Upgrade to TinyMCE 5.6.0 or higher\n- Manually sanitize `iframe`, `object` and `embed` URL attributes using a [TinyMCE node filter](https://www.tiny.cloud/docs/api/tinymce.html/tinymce.html.domparser/#addnodefilter).\n- Disable `iframe`, `object`, and `embed` elements in your content using the [invalid_elements](https://www.tiny.cloud/docs/configure/content-filtering/#invalid_elements) setting.\n\n#### Example: Sanitizing using a node filter\n```js\neditor.parser.addNodeFilter(\u0027iframe,object,embed\u0027, function(nodes) {\n  nodes.forEach(function(node) {\n    if (node.attributes) {\n      node.attributes.forEach(function(attr) {\n        var name \u003d attr.name;\n        var value \u003d attr.value;\n        // Sanitize the attribute value here or remove it entirely\n        var sanitizedValue \u003d ...;\n        node.attr(name, santizedValue);\n      });\n    }\n  });\n});\n```\n\n#### Example: Using invalid_elements\n```js\ninvalid_elements: \u0027iframe,object,embed\u0027\n```\n\n### Acknowledgements\nTiny Technologies would like to thank Aaron Bishop at SecurityMetrics for discovering this vulnerability.\n\n### References\nhttps://www.tiny.cloud/docs/release-notes/release-notes56/#securityfixes\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in the [TinyMCE repo](https://github.com/tinymce/tinymce/issues)\n* Email us at [infosec@tiny.cloud](mailto:infosec@tiny.cloud)",
+  "affected": [
+    {
+      "package": {
+        "name": "tinymce",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.6.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "TinyMCE",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/TinyMCE"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.6.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "3.4.3.2",
+        "3.4.4",
+        "3.4.5",
+        "3.4.7",
+        "3.5.0",
+        "3.5.0.1",
+        "3.5.1",
+        "3.5.1.1",
+        "3.5.2",
+        "3.5.3",
+        "3.5.4",
+        "3.5.4.1",
+        "3.5.5",
+        "3.5.6",
+        "3.5.7",
+        "3.5.8",
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1"
+      ]
+    },
+    {
+      "package": {
+        "name": "tinymce/tinymce",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/tinymce/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.6.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.12",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.3",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.7",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.12",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.5.9",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.1",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.2",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/security/advisories/GHSA-w7jx-j77m-wp65"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.npmjs.com/package/tinymce"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.tiny.cloud/docs/release-notes/release-notes56/#securityfixes"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-79"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-01-06T19:27:46Z"
+  }
+},
+{
+  "id": "GHSA-5vm8-hhgr-jcjp",
+  "published": "2021-05-28T19:18:53Z",
+  "modified": "2021-05-27T21:29:43Z",
+  "summary": "Cross-site scripting vulnerability in TinyMCE",
+  "details": "### Impact\nA cross-site scripting (XSS) vulnerability was discovered in the URL sanitization logic of the core parser for `form` elements. The vulnerability allowed arbitrary JavaScript execution when inserting a specially crafted piece of content into the editor using the clipboard or APIs, and then submitting the form. However, as TinyMCE does not allow forms to be submitted while editing, the vulnerability could only be triggered when the content was previewed or rendered outside of the editor. This impacts all users who are using TinyMCE 5.7.0 or lower.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 5.7.1 by improved URL sanitization logic.\n\n### Workarounds\nTo work around this vulnerability, either:\n- Upgrade to TinyMCE 5.7.1 or higher\n- Manually sanitize `form` URL attributes using a [TinyMCE node filter](https://www.tiny.cloud/docs/api/tinymce.html/tinymce.html.domparser/#addnodefilter).\n- Disable `form` elements in your content using the [invalid_elements](https://www.tiny.cloud/docs/configure/content-filtering/#invalid_elements) setting.\n\n#### Example: Sanitizing using a node filter\n```js\neditor.parser.addNodeFilter(\u0027form\u0027, function(nodes) {\n  nodes.forEach(function(node) {\n    if (node.attributes) {\n      node.attributes.forEach(function(attr) {\n        var name \u003d attr.name;\n        var value \u003d attr.value;\n        // Sanitize the attribute value here or remove it entirely\n        var sanitizedValue \u003d ...;\n        node.attr(name, santizedValue);\n      });\n    }\n  });\n});\n```\n\n#### Example: Using invalid_elements\n```js\ninvalid_elements: \u0027form\u0027\n```\n\n### Acknowledgements\nTiny Technologies would like to thank Mikhail Khramenkov at Solar Security Research Team for discovering this vulnerability.\n\n### References\nhttps://www.tiny.cloud/docs/release-notes/release-notes571/#securityfixes\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in the [TinyMCE repo](https://github.com/tinymce/tinymce/issues)\n* Email us at [infosec@tiny.cloud](mailto:infosec@tiny.cloud)",
+  "affected": [
+    {
+      "package": {
+        "name": "tinymce",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.7.1"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/security/advisories/GHSA-5vm8-hhgr-jcjp"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-79"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-05-27T21:29:43Z"
+  }
+},
+{
+  "id": "GHSA-5h9g-x5rv-25wg",
+  "published": "2021-10-22T16:24:02Z",
+  "modified": "2023-02-16T23:07:34.591629Z",
+  "summary": "Cross-site scripting vulnerability in TinyMCE",
+  "details": "### Impact\nA cross-site scripting (XSS) vulnerability was discovered in the schema validation logic of the core parser. The vulnerability allowed arbitrary JavaScript execution when inserting a specially crafted piece of content into the editor using the clipboard or editor APIs. This malicious content could then end up in content published outside the editor, if no server-side sanitization was performed. This impacts all users who are using TinyMCE 5.8.2 or lower.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 5.9.0 by ensuring schema validation was still performed after unwrapping invalid elements.\n\n### Workarounds\nTo work around this vulnerability, either:\n- Upgrade to TinyMCE 5.9.0 or higher\n- Manually sanitize the content using the `BeforeSetContent` event (see below)\n\n#### Example: Manually sanitize content\n```js\neditor.on(\u0027BeforeSetContent\u0027, function(e) {\n  var sanitizedContent \u003d ...; // Manually sanitize content here\n  e.content \u003d sanitizedContent;\n});\n```\n\n### Acknowledgements\nTiny Technologies would like to thank William Bowling for discovering this vulnerability.\n\n### References\nhttps://www.tiny.cloud/docs/release-notes/release-notes59/#securityfixes\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Email us at [infosec@tiny.cloud](mailto:infosec@tiny.cloud)\n* Open an issue in the [TinyMCE repo](https://github.com/tinymce/tinymce/issues)",
+  "affected": [
+    {
+      "package": {
+        "name": "tinymce",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.9.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "TinyMCE",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/TinyMCE"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.9.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "3.4.3.2",
+        "3.4.4",
+        "3.4.5",
+        "3.4.7",
+        "3.5.0",
+        "3.5.0.1",
+        "3.5.1",
+        "3.5.1.1",
+        "3.5.2",
+        "3.5.3",
+        "3.5.4",
+        "3.5.4.1",
+        "3.5.5",
+        "3.5.6",
+        "3.5.7",
+        "3.5.8",
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1",
+        "5.6.0",
+        "5.6.1",
+        "5.6.2",
+        "5.7.0",
+        "5.7.1",
+        "5.8.0",
+        "5.8.1",
+        "5.8.2"
+      ]
+    },
+    {
+      "package": {
+        "name": "tinymce/tinymce",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/tinymce/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.9.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.12",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.3",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.7",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.12",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.5.9",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.1",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.2",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1",
+        "5.6.0",
+        "5.6.1",
+        "5.6.2",
+        "5.7.0",
+        "5.7.1",
+        "5.8.0",
+        "5.8.1",
+        "5.8.2"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/security/advisories/GHSA-5h9g-x5rv-25wg"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/tinymce/tinymce"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.tiny.cloud/docs/release-notes/release-notes59/#securityfixes"
+    }
+  ],
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-79"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-10-22T13:49:23Z"
+  }
+},
+{
+  "id": "GHSA-r8hm-w5f7-wj39",
+  "published": "2021-11-02T15:42:52Z",
+  "modified": "2023-02-16T23:19:33.307404Z",
+  "summary": "Cross-site scripting vulnerability in TinyMCE plugins",
+  "details": "### Impact\nA cross-site scripting (XSS) vulnerability was discovered in the URL processing logic of the `image` and `link` plugins. The vulnerability allowed arbitrary JavaScript execution when updating an image or link using a specially crafted URL. This issue only impacted users while editing and the dangerous URLs were stripped in any content extracted from the editor. This impacts all users who are using TinyMCE 5.9.2 or lower.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 5.10.0 by improved sanitization logic when updating URLs in the relevant plugins.\n\n### Workarounds\nTo work around this vulnerability, either:\n- Upgrade to TinyMCE 5.10.0 or higher\n- Disable the `image` and `link` plugins\n\n### Acknowledgements\nTiny Technologies would like to thank Yakir6 for discovering this vulnerability.\n\n### References\nhttps://www.tiny.cloud/docs/release-notes/release-notes510/#securityfixes\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Email us at [infosec@tiny.cloud](mailto:infosec@tiny.cloud)\n* Open an issue in the [TinyMCE repo](https://github.com/tinymce/tinymce/issues)",
+  "affected": [
+    {
+      "package": {
+        "name": "tinymce",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.10.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "tinymce/tinymce",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/tinymce/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.10.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.12",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.3",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.7",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.12",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.5.9",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.1",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.2",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1",
+        "5.6.0",
+        "5.6.1",
+        "5.6.2",
+        "5.7.0",
+        "5.7.1",
+        "5.8.0",
+        "5.8.1",
+        "5.8.2",
+        "5.9.0",
+        "5.9.1",
+        "5.9.2"
+      ]
+    },
+    {
+      "package": {
+        "name": "TinyMCE",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/TinyMCE"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.10.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "3.4.3.2",
+        "3.4.4",
+        "3.4.5",
+        "3.4.7",
+        "3.5.0",
+        "3.5.0.1",
+        "3.5.1",
+        "3.5.1.1",
+        "3.5.2",
+        "3.5.3",
+        "3.5.4",
+        "3.5.4.1",
+        "3.5.5",
+        "3.5.6",
+        "3.5.7",
+        "3.5.8",
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1",
+        "5.6.0",
+        "5.6.1",
+        "5.6.2",
+        "5.7.0",
+        "5.7.1",
+        "5.8.0",
+        "5.8.1",
+        "5.8.2",
+        "5.9.0",
+        "5.9.1",
+        "5.9.2"
+      ]
+    },
+    {
+      "package": {
+        "name": "django-tinymce",
+        "ecosystem": "PyPI",
+        "purl": "pkg:pypi/django-tinymce"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.4.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "1.0",
+        "1.1",
+        "1.2",
+        "1.3",
+        "1.4",
+        "1.4.1",
+        "1.5",
+        "1.5.1",
+        "1.5.1.dev100",
+        "1.5.1.dev101",
+        "1.5.1a1",
+        "1.5.1a2",
+        "1.5.1a3",
+        "1.5.1b1",
+        "1.5.1b2",
+        "1.5.1b3",
+        "1.5.1b4",
+        "1.5.2",
+        "1.5.3",
+        "1.5.4",
+        "2.0.0",
+        "2.0.1",
+        "2.0.2",
+        "2.0.3",
+        "2.0.4",
+        "2.0.5",
+        "2.0.6",
+        "2.0.7",
+        "2.1.0",
+        "2.2.0",
+        "2.3.0",
+        "2.4.0",
+        "2.5.0",
+        "2.6.0",
+        "2.6.1",
+        "2.7.0",
+        "2.7.1",
+        "2.8.0",
+        "2.9.0",
+        "3.0.1",
+        "3.0.2",
+        "3.1.0",
+        "3.2.0",
+        "3.3.0"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/security/advisories/GHSA-r8hm-w5f7-wj39"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/jazzband/django-tinymce/issues/366"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/jazzband/django-tinymce/releases/tag/3.4.0"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/tinymce/tinymce"
+    },
+    {
+      "type": "WEB",
+      "url": "https://pypi.org/project/django-tinymce/3.4.0/"
+    }
+  ],
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-64",
+      "CWE-79"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-11-01T20:02:43Z"
+  }
+},
+{
+  "id": "GHSA-gg8r-xjwq-4w92",
+  "published": "2022-12-08T23:30:01Z",
+  "modified": "2023-02-16T23:08:37.014073Z",
+  "aliases": [
+    "CVE-2022-23494"
+  ],
+  "summary": "Cross-site scripting vulnerability in TinyMCE alerts",
+  "details": "### Impact\nA cross-site scripting (XSS) vulnerability was discovered in the alert and confirm dialogs when these dialogs were provided with malicious HTML content. This can occur in plugins that use the alert or confirm dialogs, such as in the `image` plugin, which presents these dialogs when certain errors occur. The vulnerability allowed arbitrary JavaScript execution when an alert presented in the TinyMCE UI for the current user.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 5.10.7 and TinyMCE 6.3.1 by ensuring HTML sanitization was still performed after unwrapping invalid elements.\n\n### Fix\nTo avoid this vulnerability:\n- Upgrade to TinyMCE 5.10.7 or higher for TinyMCE 5.x.\n- Upgrade to TinyMCE 6.3.1 or higher for TinyMCE 6.x.\n\n### Workaround\nTo reduce the impact of this vulnerability:\n- Ensure the the `images_upload_handler` returns a valid value as per the images_upload_handler documentation.\n\n### References\n- https://www.tiny.cloud/docs/release-notes/release-notes5107/#securityfixes\n- https://www.tiny.cloud/docs/tinymce/6/6.3-release-notes/#security-fixes\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Email us at [infosec@tiny.cloud](mailto:infosec@tiny.cloud)\n* Open an issue in the [TinyMCE repo](https://github.com/tinymce/tinymce/issues)",
+  "affected": [
+    {
+      "package": {
+        "name": "tinymce",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "6.0.0"
+            },
+            {
+              "fixed": "6.3.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "tinymce/tinymce",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/tinymce/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "6.0.0"
+            },
+            {
+              "fixed": "6.3.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "6.0.0",
+        "6.0.1",
+        "6.0.2",
+        "6.0.3",
+        "6.1.0",
+        "6.1.1",
+        "6.1.2",
+        "6.2.0",
+        "6.3.0"
+      ]
+    },
+    {
+      "package": {
+        "name": "TinyMCE",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/TinyMCE"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "6.0.0"
+            },
+            {
+              "fixed": "6.3.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "6.0.0",
+        "6.0.1",
+        "6.0.2",
+        "6.0.3",
+        "6.1.0",
+        "6.1.1",
+        "6.1.2",
+        "6.2.0",
+        "6.3.0"
+      ]
+    },
+    {
+      "package": {
+        "name": "tinymce",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.10.7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "tinymce/tinymce",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/tinymce/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.10.7"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.12",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.3",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.7",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.12",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.5.9",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.1",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.2",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.10.0",
+        "5.10.1",
+        "5.10.2",
+        "5.10.3",
+        "5.10.4",
+        "5.10.5",
+        "5.10.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1",
+        "5.6.0",
+        "5.6.1",
+        "5.6.2",
+        "5.7.0",
+        "5.7.1",
+        "5.8.0",
+        "5.8.1",
+        "5.8.2",
+        "5.9.0",
+        "5.9.1",
+        "5.9.2"
+      ]
+    },
+    {
+      "package": {
+        "name": "TinyMCE",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/TinyMCE"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.10.7"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "3.4.3.2",
+        "3.4.4",
+        "3.4.5",
+        "3.4.7",
+        "3.5.0",
+        "3.5.0.1",
+        "3.5.1",
+        "3.5.1.1",
+        "3.5.2",
+        "3.5.3",
+        "3.5.4",
+        "3.5.4.1",
+        "3.5.5",
+        "3.5.6",
+        "3.5.7",
+        "3.5.8",
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.10.0",
+        "5.10.1",
+        "5.10.2",
+        "5.10.3",
+        "5.10.4",
+        "5.10.5",
+        "5.10.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1",
+        "5.6.0",
+        "5.6.1",
+        "5.6.2",
+        "5.7.0",
+        "5.7.1",
+        "5.8.0",
+        "5.8.1",
+        "5.8.2",
+        "5.9.0",
+        "5.9.1",
+        "5.9.2"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/security/advisories/GHSA-gg8r-xjwq-4w92"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-23494"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/commit/6923d85eba6de3e08ebc9c5a387b5abdaa21150e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/commit/8bb2d2646d4e1a718fce61a775fa22e9d317b32d"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/tinymce/tinymce"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.tiny.cloud/docs/release-notes/release-notes5107/#securityfixes"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.tiny.cloud/docs/tinymce/6/6.3-release-notes/#security-fixes"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.tiny.cloud/docs/tinymce/6/file-image-upload/#images_upload_handler"
+    }
+  ],
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-79"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2022-12-08T23:30:01Z",
+    "nvd_published_at": "2022-12-08T22:15:00Z"
+  }
+},
+{
+  "id": "GHSA-3x9f-74h4-2fqr",
+  "published": "2021-07-22T19:48:17Z",
+  "modified": "2023-02-16T23:27:09.356017Z",
+  "aliases": [
+    "CVE-2021-32012"
+  ],
+  "summary": "Denial of Service in SheetJS Pro",
+  "details": "SheetJS Pro through 0.16.9 allows attackers to cause a denial of service (memory consumption) via a crafted .xlsx document that is mishandled when read by xlsx.js (issue 1 of 2).",
+  "affected": [
+    {
+      "package": {
+        "name": "xlsx",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/xlsx"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.17.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "org.webjars.npm:xlsx",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.webjars.npm/xlsx"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.17.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.12.11",
+        "0.12.13",
+        "0.12.5",
+        "0.14.0",
+        "0.14.1",
+        "0.14.3",
+        "0.14.5",
+        "0.15.1",
+        "0.15.2",
+        "0.15.3",
+        "0.15.4",
+        "0.15.5",
+        "0.15.6",
+        "0.16.6",
+        "0.16.7",
+        "0.16.8",
+        "0.16.9",
+        "0.8.0",
+        "0.9.13"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-32012"
+    },
+    {
+      "type": "WEB",
+      "url": "https://floqast.com/engineering-blog/post/fuzzing-and-parsing-securely/"
+    },
+    {
+      "type": "WEB",
+      "url": "https://sheetjs.com/pro"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.npmjs.com/package/xlsx/v/0.17.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.oracle.com/security-alerts/cpujan2022.html"
+    }
+  ],
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-400"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-07-19T21:44:38Z",
+    "nvd_published_at": "2021-07-19T14:15:00Z"
+  }
+},
+{
+  "id": "GHSA-8vcr-vxm8-293m",
+  "published": "2021-07-22T19:48:13Z",
+  "modified": "2023-02-16T23:07:36.403490Z",
+  "aliases": [
+    "CVE-2021-32013"
+  ],
+  "summary": "Denial of Service in SheetsJS Pro",
+  "details": "SheetJS Pro through 0.16.9 allows attackers to cause a denial of service (memory consumption) via a crafted .xlsx document that is mishandled when read by xlsx.js (issue 2 of 2).",
+  "affected": [
+    {
+      "package": {
+        "name": "xlsx",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/xlsx"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.17.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "org.webjars.npm:xlsx",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.webjars.npm/xlsx"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.17.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.12.11",
+        "0.12.13",
+        "0.12.5",
+        "0.14.0",
+        "0.14.1",
+        "0.14.3",
+        "0.14.5",
+        "0.15.1",
+        "0.15.2",
+        "0.15.3",
+        "0.15.4",
+        "0.15.5",
+        "0.15.6",
+        "0.16.6",
+        "0.16.7",
+        "0.16.8",
+        "0.16.9",
+        "0.8.0",
+        "0.9.13"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-32013"
+    },
+    {
+      "type": "WEB",
+      "url": "https://floqast.com/engineering-blog/post/fuzzing-and-parsing-securely/"
+    },
+    {
+      "type": "WEB",
+      "url": "https://sheetjs.com/pro"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.npmjs.com/package/xlsx/v/0.17.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.oracle.com/security-alerts/cpujan2022.html"
+    }
+  ],
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-400"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-07-19T21:41:18Z",
+    "nvd_published_at": "2021-07-19T14:15:00Z"
+  }
+},
+{
+  "id": "GHSA-g973-978j-2c3p",
+  "published": "2021-07-22T19:47:15Z",
+  "modified": "2023-02-16T23:09:24.754480Z",
+  "aliases": [
+    "CVE-2021-32014"
+  ],
+  "summary": "Denial of Service in SheetJS Pro",
+  "details": "SheetJS Pro through 0.16.9 allows attackers to cause a denial of service (CPU consumption) via a crafted .xlsx document that is mishandled when read by xlsx.js.",
+  "affected": [
+    {
+      "package": {
+        "name": "xlsx",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/xlsx"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.17.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "org.webjars.npm:xlsx",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.webjars.npm/xlsx"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.17.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.12.11",
+        "0.12.13",
+        "0.12.5",
+        "0.14.0",
+        "0.14.1",
+        "0.14.3",
+        "0.14.5",
+        "0.15.1",
+        "0.15.2",
+        "0.15.3",
+        "0.15.4",
+        "0.15.5",
+        "0.15.6",
+        "0.16.6",
+        "0.16.7",
+        "0.16.8",
+        "0.16.9",
+        "0.8.0",
+        "0.9.13"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-32014"
+    },
+    {
+      "type": "WEB",
+      "url": "https://floqast.com/engineering-blog/post/fuzzing-and-parsing-securely/"
+    },
+    {
+      "type": "WEB",
+      "url": "https://sheetjs.com/pro"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.npmjs.com/package/xlsx/v/0.17.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.oracle.com/security-alerts/cpujan2022.html"
+    }
+  ],
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-345",
+      "CWE-400"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-07-19T21:44:42Z",
+    "nvd_published_at": "2021-07-19T14:15:00Z"
+  }
+},
+{
+  "id": "GHSA-3x9f-74h4-2fqr",
+  "published": "2021-07-22T19:48:17Z",
+  "modified": "2023-02-16T23:27:09.356017Z",
+  "aliases": [
+    "CVE-2021-32012"
+  ],
+  "summary": "Denial of Service in SheetJS Pro",
+  "details": "SheetJS Pro through 0.16.9 allows attackers to cause a denial of service (memory consumption) via a crafted .xlsx document that is mishandled when read by xlsx.js (issue 1 of 2).",
+  "affected": [
+    {
+      "package": {
+        "name": "xlsx",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/xlsx"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.17.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "org.webjars.npm:xlsx",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.webjars.npm/xlsx"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.17.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.12.11",
+        "0.12.13",
+        "0.12.5",
+        "0.14.0",
+        "0.14.1",
+        "0.14.3",
+        "0.14.5",
+        "0.15.1",
+        "0.15.2",
+        "0.15.3",
+        "0.15.4",
+        "0.15.5",
+        "0.15.6",
+        "0.16.6",
+        "0.16.7",
+        "0.16.8",
+        "0.16.9",
+        "0.8.0",
+        "0.9.13"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-32012"
+    },
+    {
+      "type": "WEB",
+      "url": "https://floqast.com/engineering-blog/post/fuzzing-and-parsing-securely/"
+    },
+    {
+      "type": "WEB",
+      "url": "https://sheetjs.com/pro"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.npmjs.com/package/xlsx/v/0.17.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.oracle.com/security-alerts/cpujan2022.html"
+    }
+  ],
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-400"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-07-19T21:44:38Z",
+    "nvd_published_at": "2021-07-19T14:15:00Z"
+  }
+},
+{
+  "id": "GHSA-8vcr-vxm8-293m",
+  "published": "2021-07-22T19:48:13Z",
+  "modified": "2023-02-16T23:07:36.403490Z",
+  "aliases": [
+    "CVE-2021-32013"
+  ],
+  "summary": "Denial of Service in SheetsJS Pro",
+  "details": "SheetJS Pro through 0.16.9 allows attackers to cause a denial of service (memory consumption) via a crafted .xlsx document that is mishandled when read by xlsx.js (issue 2 of 2).",
+  "affected": [
+    {
+      "package": {
+        "name": "xlsx",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/xlsx"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.17.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "org.webjars.npm:xlsx",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.webjars.npm/xlsx"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.17.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.12.11",
+        "0.12.13",
+        "0.12.5",
+        "0.14.0",
+        "0.14.1",
+        "0.14.3",
+        "0.14.5",
+        "0.15.1",
+        "0.15.2",
+        "0.15.3",
+        "0.15.4",
+        "0.15.5",
+        "0.15.6",
+        "0.16.6",
+        "0.16.7",
+        "0.16.8",
+        "0.16.9",
+        "0.8.0",
+        "0.9.13"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-32013"
+    },
+    {
+      "type": "WEB",
+      "url": "https://floqast.com/engineering-blog/post/fuzzing-and-parsing-securely/"
+    },
+    {
+      "type": "WEB",
+      "url": "https://sheetjs.com/pro"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.npmjs.com/package/xlsx/v/0.17.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.oracle.com/security-alerts/cpujan2022.html"
+    }
+  ],
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-400"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-07-19T21:41:18Z",
+    "nvd_published_at": "2021-07-19T14:15:00Z"
+  }
+},
+{
+  "id": "GHSA-g973-978j-2c3p",
+  "published": "2021-07-22T19:47:15Z",
+  "modified": "2023-02-16T23:09:24.754480Z",
+  "aliases": [
+    "CVE-2021-32014"
+  ],
+  "summary": "Denial of Service in SheetJS Pro",
+  "details": "SheetJS Pro through 0.16.9 allows attackers to cause a denial of service (CPU consumption) via a crafted .xlsx document that is mishandled when read by xlsx.js.",
+  "affected": [
+    {
+      "package": {
+        "name": "xlsx",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/xlsx"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.17.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "org.webjars.npm:xlsx",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.webjars.npm/xlsx"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.17.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.12.11",
+        "0.12.13",
+        "0.12.5",
+        "0.14.0",
+        "0.14.1",
+        "0.14.3",
+        "0.14.5",
+        "0.15.1",
+        "0.15.2",
+        "0.15.3",
+        "0.15.4",
+        "0.15.5",
+        "0.15.6",
+        "0.16.6",
+        "0.16.7",
+        "0.16.8",
+        "0.16.9",
+        "0.8.0",
+        "0.9.13"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-32014"
+    },
+    {
+      "type": "WEB",
+      "url": "https://floqast.com/engineering-blog/post/fuzzing-and-parsing-securely/"
+    },
+    {
+      "type": "WEB",
+      "url": "https://sheetjs.com/pro"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.npmjs.com/package/xlsx/v/0.17.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.oracle.com/security-alerts/cpujan2022.html"
+    }
+  ],
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-345",
+      "CWE-400"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-07-19T21:44:42Z",
+    "nvd_published_at": "2021-07-19T14:15:00Z"
+  }
+},
+{
+  "id": "OSV-2020-484",
+  "published": "2020-07-01T00:00:12.297418Z",
+  "modified": "2022-04-13T03:04:32.842142Z",
+  "summary": "Heap-buffer-overflow in AAT::KerxSubTableFormat4\u003cAAT::KerxSubTableHeader\u003e::driver_context_t::transition",
+  "details": "OSS-Fuzz report: https://bugs.chromium.org/p/oss-fuzz/issues/detail?id\u003d12532\n\n```\nCrash type: Heap-buffer-overflow READ 4\nCrash state:\nAAT::KerxSubTableFormat4\u003cAAT::KerxSubTableHeader\u003e::driver_context_t::transition\nvoid AAT::StateTableDriver\u003cAAT::ExtendedTypes, AAT::KerxSubTableFormat4\u003cAAT::Ker\nAAT::KerxSubTableFormat4\u003cAAT::KerxSubTableHeader\u003e::apply\n```\n",
+  "affected": [
+    {
+      "package": {
+        "name": "harfbuzz",
+        "ecosystem": "OSS-Fuzz",
+        "purl": "pkg:generic/harfbuzz"
+      },
+      "ranges": [
+        {
+          "type": "GIT",
+          "repo": "https://github.com/harfbuzz/harfbuzz.git",
+          "events": [
+            {
+              "introduced": "4009a05ca7de21fff2176621597cd0cd01e9d80e"
+            },
+            {
+              "fixed": "cc8e9a436fa408a1c63f4b9afb7643cea76a079c"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.2.0",
+        "2.3.0"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://bugs.chromium.org/p/oss-fuzz/issues/detail?id\u003d12532"
+    }
+  ]
+},
+{
+  "id": "GHSA-h96f-fc7c-9r55",
+  "published": "2021-01-06T19:25:46Z",
+  "modified": "2021-01-06T19:25:24Z",
+  "summary": "Regex denial of service vulnerability in codesample plugin",
+  "details": "### Impact\nA regex denial of service (ReDoS) vulnerability was discovered in a dependency of the `codesample` plugin. The vulnerability allowed poorly formed ruby code samples to lock up the browser while performing syntax highlighting. This impacts users of the `codesample` plugin using TinyMCE 5.5.1 or lower.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 5.6.0 by upgrading to a version of the dependency without the vulnerability.\n\n### Workarounds\nTo work around this vulnerability, either:\n- Upgrade to TinyMCE 5.6.0 or higher\n- Disable the `codesample` plugin\n- Disable ruby code samples using the [codesample_languages](https://www.tiny.cloud/docs/plugins/opensource/codesample/#exampleusingcodesample_languages) setting\n- Override the PrismJS syntax highlighter to version 1.21.0 or higher using the [codesample_global_prismjs](https://www.tiny.cloud/docs/plugins/opensource/codesample/#codesample_global_prismjs) setting\n\n### Acknowledgements\nTiny Technologies would like to thank Erik Krogh Kristensen at GitHub for discovering this vulnerability.\n\n### References\nhttps://www.tiny.cloud/docs/release-notes/release-notes56/#securityfixes\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in the [TinyMCE repo](http://github.com/tinymce/tinymce/issues)\n* Email us at [infosec@tiny.cloud](mailto:infosec@tiny.cloud)",
+  "affected": [
+    {
+      "package": {
+        "name": "tinymce",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.6.0"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/security/advisories/GHSA-h96f-fc7c-9r55"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.npmjs.com/package/tinymce"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.tiny.cloud/docs/release-notes/release-notes56/#securityfixes"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-400"
+    ],
+    "severity": "LOW",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-01-06T19:25:24Z"
+  }
+},
+{
+  "id": "GHSA-w7jx-j77m-wp65",
+  "published": "2021-01-06T19:27:54Z",
+  "modified": "2023-02-16T23:32:21.926258Z",
+  "summary": "Cross-site scripting vulnerability in TinyMCE",
+  "details": "### Impact\nA cross-site scripting (XSS) vulnerability was discovered in the URL sanitization logic of the core parser. The vulnerability allowed arbitrary JavaScript execution when inserting a specially crafted piece of content into the editor using the clipboard or APIs. This impacts all users who are using TinyMCE 5.5.1 or lower.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 5.6.0 by improved URL sanitization logic.\n\n### Workarounds\nTo work around this vulnerability, either:\n- Upgrade to TinyMCE 5.6.0 or higher\n- Manually sanitize `iframe`, `object` and `embed` URL attributes using a [TinyMCE node filter](https://www.tiny.cloud/docs/api/tinymce.html/tinymce.html.domparser/#addnodefilter).\n- Disable `iframe`, `object`, and `embed` elements in your content using the [invalid_elements](https://www.tiny.cloud/docs/configure/content-filtering/#invalid_elements) setting.\n\n#### Example: Sanitizing using a node filter\n```js\neditor.parser.addNodeFilter(\u0027iframe,object,embed\u0027, function(nodes) {\n  nodes.forEach(function(node) {\n    if (node.attributes) {\n      node.attributes.forEach(function(attr) {\n        var name \u003d attr.name;\n        var value \u003d attr.value;\n        // Sanitize the attribute value here or remove it entirely\n        var sanitizedValue \u003d ...;\n        node.attr(name, santizedValue);\n      });\n    }\n  });\n});\n```\n\n#### Example: Using invalid_elements\n```js\ninvalid_elements: \u0027iframe,object,embed\u0027\n```\n\n### Acknowledgements\nTiny Technologies would like to thank Aaron Bishop at SecurityMetrics for discovering this vulnerability.\n\n### References\nhttps://www.tiny.cloud/docs/release-notes/release-notes56/#securityfixes\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in the [TinyMCE repo](https://github.com/tinymce/tinymce/issues)\n* Email us at [infosec@tiny.cloud](mailto:infosec@tiny.cloud)",
+  "affected": [
+    {
+      "package": {
+        "name": "tinymce",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.6.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "TinyMCE",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/TinyMCE"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.6.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "3.4.3.2",
+        "3.4.4",
+        "3.4.5",
+        "3.4.7",
+        "3.5.0",
+        "3.5.0.1",
+        "3.5.1",
+        "3.5.1.1",
+        "3.5.2",
+        "3.5.3",
+        "3.5.4",
+        "3.5.4.1",
+        "3.5.5",
+        "3.5.6",
+        "3.5.7",
+        "3.5.8",
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1"
+      ]
+    },
+    {
+      "package": {
+        "name": "tinymce/tinymce",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/tinymce/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.6.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.12",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.3",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.7",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.12",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.5.9",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.1",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.2",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/security/advisories/GHSA-w7jx-j77m-wp65"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.npmjs.com/package/tinymce"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.tiny.cloud/docs/release-notes/release-notes56/#securityfixes"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-79"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-01-06T19:27:46Z"
+  }
+},
+{
+  "id": "GHSA-5vm8-hhgr-jcjp",
+  "published": "2021-05-28T19:18:53Z",
+  "modified": "2021-05-27T21:29:43Z",
+  "summary": "Cross-site scripting vulnerability in TinyMCE",
+  "details": "### Impact\nA cross-site scripting (XSS) vulnerability was discovered in the URL sanitization logic of the core parser for `form` elements. The vulnerability allowed arbitrary JavaScript execution when inserting a specially crafted piece of content into the editor using the clipboard or APIs, and then submitting the form. However, as TinyMCE does not allow forms to be submitted while editing, the vulnerability could only be triggered when the content was previewed or rendered outside of the editor. This impacts all users who are using TinyMCE 5.7.0 or lower.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 5.7.1 by improved URL sanitization logic.\n\n### Workarounds\nTo work around this vulnerability, either:\n- Upgrade to TinyMCE 5.7.1 or higher\n- Manually sanitize `form` URL attributes using a [TinyMCE node filter](https://www.tiny.cloud/docs/api/tinymce.html/tinymce.html.domparser/#addnodefilter).\n- Disable `form` elements in your content using the [invalid_elements](https://www.tiny.cloud/docs/configure/content-filtering/#invalid_elements) setting.\n\n#### Example: Sanitizing using a node filter\n```js\neditor.parser.addNodeFilter(\u0027form\u0027, function(nodes) {\n  nodes.forEach(function(node) {\n    if (node.attributes) {\n      node.attributes.forEach(function(attr) {\n        var name \u003d attr.name;\n        var value \u003d attr.value;\n        // Sanitize the attribute value here or remove it entirely\n        var sanitizedValue \u003d ...;\n        node.attr(name, santizedValue);\n      });\n    }\n  });\n});\n```\n\n#### Example: Using invalid_elements\n```js\ninvalid_elements: \u0027form\u0027\n```\n\n### Acknowledgements\nTiny Technologies would like to thank Mikhail Khramenkov at Solar Security Research Team for discovering this vulnerability.\n\n### References\nhttps://www.tiny.cloud/docs/release-notes/release-notes571/#securityfixes\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in the [TinyMCE repo](https://github.com/tinymce/tinymce/issues)\n* Email us at [infosec@tiny.cloud](mailto:infosec@tiny.cloud)",
+  "affected": [
+    {
+      "package": {
+        "name": "tinymce",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.7.1"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/security/advisories/GHSA-5vm8-hhgr-jcjp"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-79"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-05-27T21:29:43Z"
+  }
+},
+{
+  "id": "GHSA-5h9g-x5rv-25wg",
+  "published": "2021-10-22T16:24:02Z",
+  "modified": "2023-02-16T23:07:34.591629Z",
+  "summary": "Cross-site scripting vulnerability in TinyMCE",
+  "details": "### Impact\nA cross-site scripting (XSS) vulnerability was discovered in the schema validation logic of the core parser. The vulnerability allowed arbitrary JavaScript execution when inserting a specially crafted piece of content into the editor using the clipboard or editor APIs. This malicious content could then end up in content published outside the editor, if no server-side sanitization was performed. This impacts all users who are using TinyMCE 5.8.2 or lower.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 5.9.0 by ensuring schema validation was still performed after unwrapping invalid elements.\n\n### Workarounds\nTo work around this vulnerability, either:\n- Upgrade to TinyMCE 5.9.0 or higher\n- Manually sanitize the content using the `BeforeSetContent` event (see below)\n\n#### Example: Manually sanitize content\n```js\neditor.on(\u0027BeforeSetContent\u0027, function(e) {\n  var sanitizedContent \u003d ...; // Manually sanitize content here\n  e.content \u003d sanitizedContent;\n});\n```\n\n### Acknowledgements\nTiny Technologies would like to thank William Bowling for discovering this vulnerability.\n\n### References\nhttps://www.tiny.cloud/docs/release-notes/release-notes59/#securityfixes\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Email us at [infosec@tiny.cloud](mailto:infosec@tiny.cloud)\n* Open an issue in the [TinyMCE repo](https://github.com/tinymce/tinymce/issues)",
+  "affected": [
+    {
+      "package": {
+        "name": "tinymce",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.9.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "TinyMCE",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/TinyMCE"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.9.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "3.4.3.2",
+        "3.4.4",
+        "3.4.5",
+        "3.4.7",
+        "3.5.0",
+        "3.5.0.1",
+        "3.5.1",
+        "3.5.1.1",
+        "3.5.2",
+        "3.5.3",
+        "3.5.4",
+        "3.5.4.1",
+        "3.5.5",
+        "3.5.6",
+        "3.5.7",
+        "3.5.8",
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1",
+        "5.6.0",
+        "5.6.1",
+        "5.6.2",
+        "5.7.0",
+        "5.7.1",
+        "5.8.0",
+        "5.8.1",
+        "5.8.2"
+      ]
+    },
+    {
+      "package": {
+        "name": "tinymce/tinymce",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/tinymce/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.9.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.12",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.3",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.7",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.12",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.5.9",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.1",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.2",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1",
+        "5.6.0",
+        "5.6.1",
+        "5.6.2",
+        "5.7.0",
+        "5.7.1",
+        "5.8.0",
+        "5.8.1",
+        "5.8.2"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/security/advisories/GHSA-5h9g-x5rv-25wg"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/tinymce/tinymce"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.tiny.cloud/docs/release-notes/release-notes59/#securityfixes"
+    }
+  ],
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-79"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-10-22T13:49:23Z"
+  }
+},
+{
+  "id": "GHSA-r8hm-w5f7-wj39",
+  "published": "2021-11-02T15:42:52Z",
+  "modified": "2023-02-16T23:19:33.307404Z",
+  "summary": "Cross-site scripting vulnerability in TinyMCE plugins",
+  "details": "### Impact\nA cross-site scripting (XSS) vulnerability was discovered in the URL processing logic of the `image` and `link` plugins. The vulnerability allowed arbitrary JavaScript execution when updating an image or link using a specially crafted URL. This issue only impacted users while editing and the dangerous URLs were stripped in any content extracted from the editor. This impacts all users who are using TinyMCE 5.9.2 or lower.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 5.10.0 by improved sanitization logic when updating URLs in the relevant plugins.\n\n### Workarounds\nTo work around this vulnerability, either:\n- Upgrade to TinyMCE 5.10.0 or higher\n- Disable the `image` and `link` plugins\n\n### Acknowledgements\nTiny Technologies would like to thank Yakir6 for discovering this vulnerability.\n\n### References\nhttps://www.tiny.cloud/docs/release-notes/release-notes510/#securityfixes\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Email us at [infosec@tiny.cloud](mailto:infosec@tiny.cloud)\n* Open an issue in the [TinyMCE repo](https://github.com/tinymce/tinymce/issues)",
+  "affected": [
+    {
+      "package": {
+        "name": "tinymce",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.10.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "tinymce/tinymce",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/tinymce/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.10.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.12",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.3",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.7",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.12",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.5.9",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.1",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.2",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1",
+        "5.6.0",
+        "5.6.1",
+        "5.6.2",
+        "5.7.0",
+        "5.7.1",
+        "5.8.0",
+        "5.8.1",
+        "5.8.2",
+        "5.9.0",
+        "5.9.1",
+        "5.9.2"
+      ]
+    },
+    {
+      "package": {
+        "name": "TinyMCE",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/TinyMCE"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.10.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "3.4.3.2",
+        "3.4.4",
+        "3.4.5",
+        "3.4.7",
+        "3.5.0",
+        "3.5.0.1",
+        "3.5.1",
+        "3.5.1.1",
+        "3.5.2",
+        "3.5.3",
+        "3.5.4",
+        "3.5.4.1",
+        "3.5.5",
+        "3.5.6",
+        "3.5.7",
+        "3.5.8",
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1",
+        "5.6.0",
+        "5.6.1",
+        "5.6.2",
+        "5.7.0",
+        "5.7.1",
+        "5.8.0",
+        "5.8.1",
+        "5.8.2",
+        "5.9.0",
+        "5.9.1",
+        "5.9.2"
+      ]
+    },
+    {
+      "package": {
+        "name": "django-tinymce",
+        "ecosystem": "PyPI",
+        "purl": "pkg:pypi/django-tinymce"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.4.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "1.0",
+        "1.1",
+        "1.2",
+        "1.3",
+        "1.4",
+        "1.4.1",
+        "1.5",
+        "1.5.1",
+        "1.5.1.dev100",
+        "1.5.1.dev101",
+        "1.5.1a1",
+        "1.5.1a2",
+        "1.5.1a3",
+        "1.5.1b1",
+        "1.5.1b2",
+        "1.5.1b3",
+        "1.5.1b4",
+        "1.5.2",
+        "1.5.3",
+        "1.5.4",
+        "2.0.0",
+        "2.0.1",
+        "2.0.2",
+        "2.0.3",
+        "2.0.4",
+        "2.0.5",
+        "2.0.6",
+        "2.0.7",
+        "2.1.0",
+        "2.2.0",
+        "2.3.0",
+        "2.4.0",
+        "2.5.0",
+        "2.6.0",
+        "2.6.1",
+        "2.7.0",
+        "2.7.1",
+        "2.8.0",
+        "2.9.0",
+        "3.0.1",
+        "3.0.2",
+        "3.1.0",
+        "3.2.0",
+        "3.3.0"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/security/advisories/GHSA-r8hm-w5f7-wj39"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/jazzband/django-tinymce/issues/366"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/jazzband/django-tinymce/releases/tag/3.4.0"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/tinymce/tinymce"
+    },
+    {
+      "type": "WEB",
+      "url": "https://pypi.org/project/django-tinymce/3.4.0/"
+    }
+  ],
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-64",
+      "CWE-79"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-11-01T20:02:43Z"
+  }
+},
+{
+  "id": "GHSA-gg8r-xjwq-4w92",
+  "published": "2022-12-08T23:30:01Z",
+  "modified": "2023-02-16T23:08:37.014073Z",
+  "aliases": [
+    "CVE-2022-23494"
+  ],
+  "summary": "Cross-site scripting vulnerability in TinyMCE alerts",
+  "details": "### Impact\nA cross-site scripting (XSS) vulnerability was discovered in the alert and confirm dialogs when these dialogs were provided with malicious HTML content. This can occur in plugins that use the alert or confirm dialogs, such as in the `image` plugin, which presents these dialogs when certain errors occur. The vulnerability allowed arbitrary JavaScript execution when an alert presented in the TinyMCE UI for the current user.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 5.10.7 and TinyMCE 6.3.1 by ensuring HTML sanitization was still performed after unwrapping invalid elements.\n\n### Fix\nTo avoid this vulnerability:\n- Upgrade to TinyMCE 5.10.7 or higher for TinyMCE 5.x.\n- Upgrade to TinyMCE 6.3.1 or higher for TinyMCE 6.x.\n\n### Workaround\nTo reduce the impact of this vulnerability:\n- Ensure the the `images_upload_handler` returns a valid value as per the images_upload_handler documentation.\n\n### References\n- https://www.tiny.cloud/docs/release-notes/release-notes5107/#securityfixes\n- https://www.tiny.cloud/docs/tinymce/6/6.3-release-notes/#security-fixes\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Email us at [infosec@tiny.cloud](mailto:infosec@tiny.cloud)\n* Open an issue in the [TinyMCE repo](https://github.com/tinymce/tinymce/issues)",
+  "affected": [
+    {
+      "package": {
+        "name": "tinymce",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "6.0.0"
+            },
+            {
+              "fixed": "6.3.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "tinymce/tinymce",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/tinymce/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "6.0.0"
+            },
+            {
+              "fixed": "6.3.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "6.0.0",
+        "6.0.1",
+        "6.0.2",
+        "6.0.3",
+        "6.1.0",
+        "6.1.1",
+        "6.1.2",
+        "6.2.0",
+        "6.3.0"
+      ]
+    },
+    {
+      "package": {
+        "name": "TinyMCE",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/TinyMCE"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "6.0.0"
+            },
+            {
+              "fixed": "6.3.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "6.0.0",
+        "6.0.1",
+        "6.0.2",
+        "6.0.3",
+        "6.1.0",
+        "6.1.1",
+        "6.1.2",
+        "6.2.0",
+        "6.3.0"
+      ]
+    },
+    {
+      "package": {
+        "name": "tinymce",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.10.7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "package": {
+        "name": "tinymce/tinymce",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/tinymce/tinymce"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.10.7"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.12",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.3",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.7",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.12",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.5.9",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.1",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.2",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.10.0",
+        "5.10.1",
+        "5.10.2",
+        "5.10.3",
+        "5.10.4",
+        "5.10.5",
+        "5.10.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1",
+        "5.6.0",
+        "5.6.1",
+        "5.6.2",
+        "5.7.0",
+        "5.7.1",
+        "5.8.0",
+        "5.8.1",
+        "5.8.2",
+        "5.9.0",
+        "5.9.1",
+        "5.9.2"
+      ]
+    },
+    {
+      "package": {
+        "name": "TinyMCE",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/TinyMCE"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.10.7"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "3.4.3.2",
+        "3.4.4",
+        "3.4.5",
+        "3.4.7",
+        "3.5.0",
+        "3.5.0.1",
+        "3.5.1",
+        "3.5.1.1",
+        "3.5.2",
+        "3.5.3",
+        "3.5.4",
+        "3.5.4.1",
+        "3.5.5",
+        "3.5.6",
+        "3.5.7",
+        "3.5.8",
+        "4.0.0",
+        "4.0.1",
+        "4.0.10",
+        "4.0.11",
+        "4.0.13",
+        "4.0.14",
+        "4.0.15",
+        "4.0.16",
+        "4.0.17",
+        "4.0.18",
+        "4.0.19",
+        "4.0.2",
+        "4.0.20",
+        "4.0.21",
+        "4.0.22",
+        "4.0.23",
+        "4.0.24",
+        "4.0.25",
+        "4.0.26",
+        "4.0.27",
+        "4.0.28",
+        "4.0.4",
+        "4.0.5",
+        "4.0.6",
+        "4.0.8",
+        "4.0.9",
+        "4.1.0",
+        "4.1.1",
+        "4.1.10",
+        "4.1.2",
+        "4.1.3",
+        "4.1.4",
+        "4.1.5",
+        "4.1.6",
+        "4.1.7",
+        "4.1.8",
+        "4.1.9",
+        "4.2.0",
+        "4.2.1",
+        "4.2.2",
+        "4.2.3",
+        "4.2.4",
+        "4.2.5",
+        "4.2.6",
+        "4.2.7",
+        "4.2.8",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3",
+        "4.5.0",
+        "4.5.1",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.5.5",
+        "4.5.6",
+        "4.5.7",
+        "4.5.8",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.7.0",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9",
+        "5.0.0",
+        "5.0.1",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.1.2",
+        "5.1.3",
+        "5.1.4",
+        "5.1.5",
+        "5.1.6",
+        "5.10.0",
+        "5.10.1",
+        "5.10.2",
+        "5.10.3",
+        "5.10.4",
+        "5.10.5",
+        "5.10.6",
+        "5.2.0",
+        "5.2.1",
+        "5.2.2",
+        "5.3.0",
+        "5.3.1",
+        "5.3.2",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.5.0",
+        "5.5.1",
+        "5.6.0",
+        "5.6.1",
+        "5.6.2",
+        "5.7.0",
+        "5.7.1",
+        "5.8.0",
+        "5.8.1",
+        "5.8.2",
+        "5.9.0",
+        "5.9.1",
+        "5.9.2"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/security/advisories/GHSA-gg8r-xjwq-4w92"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-23494"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/commit/6923d85eba6de3e08ebc9c5a387b5abdaa21150e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/tinymce/tinymce/commit/8bb2d2646d4e1a718fce61a775fa22e9d317b32d"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/tinymce/tinymce"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.tiny.cloud/docs/release-notes/release-notes5107/#securityfixes"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.tiny.cloud/docs/tinymce/6/6.3-release-notes/#security-fixes"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.tiny.cloud/docs/tinymce/6/file-image-upload/#images_upload_handler"
+    }
+  ],
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-79"
+    ],
+    "severity": "MODERATE",
+    "github_reviewed": true,
+    "github_reviewed_at": "2022-12-08T23:30:01Z",
+    "nvd_published_at": "2022-12-08T22:15:00Z"
+  }
+}]

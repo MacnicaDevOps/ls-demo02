@@ -1,0 +1,2 @@
+ajv@6.9.2 CVE-2020-15366
+decode-uri-component@0.2.0 CVE-2022-38900

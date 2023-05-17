@@ -1,0 +1,35 @@
+version: 2.1
+
+executors:
+  builder:
+    machine: true
+
+workflows:
+  
+  build-deploy:
+    jobs:
+      - build_scan:
+          context: leanseeks
+
+jobs:
+  build_scan:
+    executor: builder
+    
+    environment:
+      imagename: "macnicadevops"
+      
+    steps:
+      - checkout
+                     
+      - run:
+          name: Prepare environment
+          command: |
+            apt-get update && apt-get install -y curl golang git python3 python3-pip
+            go install github.com/google/osv-scanner/cmd/osv-scanner@v1
+            pip3 install cvss
+      - run:
+          name: "simple test"
+          command: |
+            osv-scanner --sbom temp2.spdx
+            vss_calculator -v "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+
