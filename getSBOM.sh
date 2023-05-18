@@ -49,7 +49,7 @@ while read row; do
   else
     echo "}," >> "osv_vlun_LS.json"
   fi
-  echo "${it}/${number}"
+  #echo "${it}/${number}"
   it=$((it+1))
 done < OSVOut.csv
 
