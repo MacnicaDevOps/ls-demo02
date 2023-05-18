@@ -15,8 +15,8 @@ jobs:
   osv_scan:
     executor: builder
     environment:
-      owner: "hakimel"
-      repo: "reveal.js"
+      owner: "leanseeks"
+      repo: "lean-seeks"
       
     steps:
       - checkout
