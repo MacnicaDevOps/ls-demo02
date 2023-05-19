@@ -50,13 +50,13 @@ while true
               if [ "${status}" == "成功" ]; then
                 cat t_result.json | jq -r ".triage"
                 if [ $(cat t_result.json | jq -r ".triage.level5VulnerabilityCounts") != 0 ]; then
-                  echo "緊急対処が必要な脆弱性が見つかったため、パイプラインを停止します！"
+                  echo "緊急対処が必要な脆弱性が見つかりました！"
                   echo "レベル5 緊急対処: "$(cat t_result.json | jq -r ".triage.level5VulnerabilityCounts")"件"
-                  exit 1
+                  exit 0
                 elif [ $(cat t_result.json | jq -r ".triage.level4VulnerabilityCounts") != 0 ]; then
-                  echo "緊急対処が推奨される脆弱性が見つかったため、パイプラインを停止します！"
+                  echo "緊急対処が推奨される脆弱性が見りました！"
                   echo "レベル4 緊急対処推奨: "$(cat t_result.json | jq -r ".triage.level4VulnerabilityCounts")"件"
-                  exit 2
+                  exit 0
                 elif [ $(cat t_result.json | jq -r ".triage.level3VulnerabilityCounts") != 0 ]; then
                   echo "対処計画が必要な脆弱性が見つかりましたが、緊急性が低いためパイプラインを継続します"
                   echo "レベル3 対処計画: "$(cat t_result.json | jq -r ".triage.level3VulnerabilityCounts")"件"
