@@ -60,7 +60,7 @@ echo "------- LeanSeeksのアップロードデータを生成中"
   echo "}]" >> vuln_data.json
 
 # LeanSeeksの環境変数を指定してファイルに書き出す
-echo "app_name=OSV_SCAN_${repo}_${CIRCLE_BUILD_NUM}" > param.txt
+echo "app_name=SBOM_SCAN_${repo}_${CIRCLE_BUILD_NUM}" > param.txt
 echo 'app_priority="H"' >> param.txt
 echo "scanner=255" >> param.txt
 
