@@ -17,7 +17,7 @@ jobs:
     environment:
       owner: "macnicadevops"
       repo: "macnicadevops.github.io"
-      
+
     steps:
       - checkout
                      
