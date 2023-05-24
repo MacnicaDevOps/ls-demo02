@@ -5,10 +5,10 @@ curl -L \
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer ${token}"\
   -H "X-GitHub-Api-Version: 2022-11-28" \
-  https://api.github.com/repos/${owner}/${repo}/dependency-graph/sbom | jq -r ".sbom" > sbom.spdx
+  https://api.github.com/repos/${owner}/${repo}/dependency-graph/sbom | jq -r ".sbom" > sbom.spdx.json
 
 # OSV-Scannerを使ってSBOMの脆弱性情報を取得する
-echo $(osv-scanner --sbom=sbom.spdx --json) > OSVOut.json
+echo $(osv-scanner --sbom=sbom.spdx.json --json) > OSVOut.json
 
 # OSVOut.jsonの.results[].packages[]からパッケージ名.package.nameとパッケージバージョン.package.versionとCVE番号.vulnerabilities[].aliases[]を抽出する。CVE番号.vulnerabilities[].aliases[]が存在しない場合は空白とする。.vulnerabilities[].scoreがある場合は、それも抽出する。
 jq -r '.results[].packages[] | .package.name + "," + .package.version + "," + (.vulnerabilities[].aliases[0]? // empty) + "," + (.vulnerabilities[].severity[0].score? // empty)' OSVOut.json > OSVOut.csv
