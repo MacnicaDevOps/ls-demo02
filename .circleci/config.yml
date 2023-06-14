@@ -35,5 +35,4 @@ jobs:
             chmod +x getSBOM.sh triage.sh
             ./getSBOM.sh
             ./triage.sh
-            
-            
+          
