@@ -16,7 +16,7 @@ jobs:
     executor: builder
     environment:
       owner: "leanseeks"
-      repo: "lean-seeks""
+      repo: "lean-seeks"
 
     steps:
       - checkout
