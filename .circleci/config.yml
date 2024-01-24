@@ -15,8 +15,8 @@ jobs:
   osv_scan:
     executor: builder
     environment:
-      owner: "macnicadevops"
-      repo: "macnicadevops.github.io"
+      owner: "Leanseeks"
+      repo: "lean-seeks"
 
     steps:
       - checkout
