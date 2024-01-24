@@ -15,7 +15,7 @@ jobs:
   osv_scan:
     executor: builder
     environment:
-      owner: "Leanseeks"
+      owner: "leanseeks"
       repo: "lean-seeks"
 
     steps:
