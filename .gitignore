@@ -5,3 +5,13 @@ param.txt
 sbom.spdx
 vuln_data.json
 demo
+_19052_properties.csv
+_19052_vulnerabilities.csv
+general_1.json
+Healthcheck-PRD_19052_properties.csv
+.gitignore
+csvexport.sh
+Healthcheck-PRD_19052_vulnerabilities.csv
+out1.json
+out2.json
+result.csv
